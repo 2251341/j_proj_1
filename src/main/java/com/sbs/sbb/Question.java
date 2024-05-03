@@ -21,4 +21,5 @@ public class Question {
     private String content;
 
     private LocalDateTime createDate;
+
 }
