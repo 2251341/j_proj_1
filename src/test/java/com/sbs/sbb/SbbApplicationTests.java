@@ -1,15 +1,20 @@
 package com.sbs.sbb;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@Transactional
+@Rollback
 class SbbApplicationTests {
 
 
@@ -48,11 +53,19 @@ class SbbApplicationTests {
 //				"sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");
 //		assertEquals(1, q.getId());
 
-		Optional<Question> oq = this.questionRepository.findById(1);
+//		Optional<Question> oq = this.questionRepository.findById(1);
+//		assertTrue(oq.isPresent());
+//		Question q = oq.get();
+//		q.setSubject("수정된 제목");
+//		this.questionRepository.save(q);
+
+		assertEquals(2, this.questionRepository.count()); //갯수 카운트
+		Optional<Question> oq = this.questionRepository.findById(1); //첫번째
 		assertTrue(oq.isPresent());
 		Question q = oq.get();
-		q.setSubject("수정된 제목");
-		this.questionRepository.save(q);
+		this.questionRepository.delete(q);
+		assertEquals(1, this.questionRepository.count()); //다시 카운트
+
 
 	}
 
