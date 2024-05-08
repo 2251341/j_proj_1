@@ -1,11 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1 style="color: red;">[[${questionList}]]</h1>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1 style="color: red;">[[${questionList}]]</h1>-->
+
+<!--<table border="1">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>번호</th>-->
+<!--        <th>제목</th>-->
+<!--        <th>작성일시</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--        <tbody>-->
+<!--            <tr th:each="q : ${questionList}">-->
+<!--                <td th:text="${questionList[1].id}"></td>-->
+<!--                <td th:text="${questionList[1].subject}"></td>-->
+<!--                <td th:text="${questionList[1].createDate}"></td>-->
+<!--            </tr>-->
+<!--        </tbody>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+<h1 style="color: red;">[[${questionList}]]</h1>
 
 <table border="1">
     <thead>
@@ -15,13 +35,12 @@
         <th>작성일시</th>
     </tr>
     </thead>
-        <tbody>
-            <tr th:each="q : ${questionList}">
-                <td th:text="${questionList[1].id}"></td>
-                <td th:text="${questionList[1].subject}"></td>
-                <td th:text="${questionList[1].createDate}"></td>
-            </tr>
-        </tbody>
+
+    <tbody>
+    <tr th:each="q : ${questionList}">
+        <td th:text="${q.id}"></td>
+        <td th:text="${q.subject}"></td>
+        <td th:text="${q.createDate}"></td>
+    </tr>
+    </tbody>
 </table>
-</body>
-</html>
