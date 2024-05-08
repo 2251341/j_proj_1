@@ -3,10 +3,7 @@ package com.sbs.sbb.Question;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,7 +29,11 @@ public class QuestionController {
 
         model.addAttribute("question", q);
         return "question_detail";
+    }
 
-
+    @PostMapping("/createTemp")
+    @ResponseBody
+    public  String temp() {
+        return "전송완료";
     }
 }
