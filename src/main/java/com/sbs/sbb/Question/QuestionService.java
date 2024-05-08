@@ -21,7 +21,7 @@ public class QuestionService {
         // oq.isPersent() == false
         // !oq.isPresent()
         // oq.isEmpty()
-        if ( oq.isEmpty() ) throw new DataNotException("question not found!!!");
+        if ( oq.isEmpty() ) throw new DataNotException("question not found");
 
 
 
