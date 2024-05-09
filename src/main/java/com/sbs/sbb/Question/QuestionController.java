@@ -30,6 +30,10 @@ public class QuestionController {
         model.addAttribute("question", q); //모델을 통해 보내줌
         return "question_detail";
     }
+    @GetMapping("/create")
+    public String questionCreate() {
+        return "question_form";
+    }
 
 
 }
