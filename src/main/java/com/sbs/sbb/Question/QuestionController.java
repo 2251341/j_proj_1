@@ -27,7 +27,7 @@ public class QuestionController {
     public  String detail(Model model, @PathVariable("id") Integer id) {
         Question q = this.questionService.getQuestion(id);
 
-        model.addAttribute("question", q);
+        model.addAttribute("question", q); //모델을 통해 보내줌
         return "question_detail";
     }
 
