@@ -33,7 +33,9 @@ public class QuestionController {
     }
 
     @GetMapping("/create")
-    public String create() {
+    // Question 변수는 model.addAttribute 없이 바로 뷰에서 접근할 수 있다.
+
+    public String create(QuestionForm questionForm) {
         return "question_form";
     }
 
