@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequestMapping("/question")
 @Controller
 @RequiredArgsConstructor
+//@Validated 컨트롤러에서는 이 부분 생략가능
 public class QuestionController {
     private final QuestionService questionService;
 
@@ -25,7 +27,7 @@ public class QuestionController {
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
+    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerFrom) {
         Question q = this.questionService.getQuestion(id);
 
         model.addAttribute("question", q);
@@ -34,22 +36,27 @@ public class QuestionController {
     }
 
     @GetMapping("/create")
-    // Question 변수는 model.addAttribute 없이 바로 뷰에서 접근할 수 있다.
+    // QuestionFrom 변수는 model.addAttribute 없이 바로 뷰에서 접근할 수 있다.
+    // QuestionFrom questionForm 써주는 이유 : question_form.html에서  questionForm 변수가 없으면 실행이 안되기 때문에
+    // 빈 객체라도 만든다.
+    // public String create(Model modle) {
+    public String create(QuestionForm questionFrom) {
+//        model.addAttribute("questionFrom", new QuestionForm());
 
-    public String create(QuestionForm questionForm) {
         return "question_form";
     }
 
     @PostMapping("/create")
-    // QuestionForm 값을 바인딩 할 때 유효성 체크를 하라!!
-//    public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
+    // QuestionForm 값을 바인딩 할 때 유효성 체크를 해라!
+    // QuestionFrom 변수는 model.addAttribute 없이 바로 뷰에서 접근할 수 있다.
     public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+        if ( bindingResult.hasErrors() ) {
             // question_form.html 실행
-            // 다시 작성 하라는 의미로 돌려보냄
+            // 다시 작성하라는 의미로 응답에 폼을 싫어서 보냄
             return "question_form";
         }
-        Question q = this.questionService.create(questionForm.getSubject(), questionForm.getSubject());
+
+        Question q = this.questionService.create(questionForm.getSubject(), questionForm.getContent());
 
         return "redirect:/question/list";
     }
