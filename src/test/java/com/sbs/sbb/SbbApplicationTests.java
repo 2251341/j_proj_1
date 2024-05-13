@@ -1,4 +1,3 @@
-
 package com.sbs.sbb;
 
 import com.sbs.sbb.Answer.Answer;
@@ -6,6 +5,8 @@ import com.sbs.sbb.Answer.AnswerRepository;
 import com.sbs.sbb.Question.Question;
 import com.sbs.sbb.Question.QuestionRepository;
 import com.sbs.sbb.Question.QuestionService;
+import com.sbs.sbb.user.UserRepository;
+import com.sbs.sbb.user.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,9 +28,14 @@ class SbbApplicationTests {
 	@Autowired
 	private QuestionService questionService;
 	@Autowired
+	private UserService userService;
+
+	@Autowired
 	private QuestionRepository questionRepository;
 	@Autowired
 	private AnswerRepository answerRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	@BeforeEach
 		// 아래 메서드는 각 테스트케이스가 실행되기 전에 실행된다.
@@ -41,6 +47,14 @@ class SbbApplicationTests {
 		// 모든 데이터 삭제
 		questionRepository.deleteAll();
 		questionRepository.clearAutoIncrement();
+
+		// 모든 데이터 삭제
+		// 흔적 삭제 -> 다음번 INSERT를 할 때 id가 1번으로 설정되도록
+		userRepository.clearAutoIncrement();
+
+		// 회원 2명 생성
+		userService.create("user1", "user1@test.com", "1234");
+		userService.create("user2", "user2@test.com", "1234");
 
 		// 질문 1개 생성
 		Question q1 = new Question();
@@ -207,7 +221,7 @@ class SbbApplicationTests {
 	@Test
 	@DisplayName("답변 조회하기")
 	void t010() {
-		Optional<Answer> oa = answerRepository.findById(2);
+		Optional<Answer> oa = answerRepository.findById(1);
 		assertTrue(oa.isPresent());
 		Answer a = oa.get();
 		assertEquals(2, a.getQuestion().getId());
@@ -218,7 +232,7 @@ class SbbApplicationTests {
 	@Test
 	@DisplayName("질문에 달린 답변 찾기")
 	void t011() {
-		Optional<Question> oq = questionRepository.findById(1);
+		Optional<Question> oq = questionRepository.findById(2);
 		assertTrue(oq.isPresent());
 		Question q = oq.get();
 
