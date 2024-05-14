@@ -1,6 +1,7 @@
 package com.sbs.sbb.Answer;
 
 import com.sbs.sbb.Question.Question;
+import com.sbs.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,9 @@ public class Answer {
     //필수                           private Integer questionId;
     @ManyToOne // question을 쓸 때 달아줘야 한다.
     private Question question;
+
+    @ManyToOne
+    private SiteUser author;
 
 
 

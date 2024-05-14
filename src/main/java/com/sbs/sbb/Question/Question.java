@@ -1,6 +1,7 @@
 package com.sbs.sbb.Question;
 
 import com.sbs.sbb.Answer.Answer;
+import com.sbs.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,5 +38,6 @@ public class Question {
     //answerList.size(); 함수가 실행 될때 COUNT 실행
     private List<Answer> answerList;
 
-
+    @ManyToOne
+    private SiteUser author;
 }
