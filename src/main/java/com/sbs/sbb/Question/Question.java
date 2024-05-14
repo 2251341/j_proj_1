@@ -28,6 +28,7 @@ public class Question {
     @Column(columnDefinition = "TEXT") // TEXT
     private String content;
 
+    private LocalDateTime modifyDate;
     private LocalDateTime createDate;
 
     // mappedBy Answer 클래스의 question 변수 이름을 적어양 함.
@@ -41,4 +42,8 @@ public class Question {
 
     @ManyToOne
     private SiteUser author;
+
+
+
+
 }

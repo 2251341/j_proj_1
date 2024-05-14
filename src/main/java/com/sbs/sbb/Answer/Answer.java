@@ -19,6 +19,7 @@ public class Answer {
     @Column(columnDefinition = "TEXT") //text
     private String content;
 
+    private LocalDateTime modifyDate;
     private LocalDateTime createDate;
 
     //Many = Answer, one = Question
