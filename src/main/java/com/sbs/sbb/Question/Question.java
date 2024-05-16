@@ -10,8 +10,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -43,7 +42,11 @@ public class Question {
     @ManyToOne
     private SiteUser author;
 
+    @ManyToMany
+    Set<SiteUser> voters = new LinkedHashSet<>();
 
 
-
+    public void addVoter(SiteUser voter) {
+        voters.add(voter);
+    }
 }
